@@ -15,4 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:pr-${{ github.event.number }}_${{ github.event.pull_request.head.sha }}
+      run: |
+        SHA=${{ github.event.pull_request.head.sha }} | cut -c1-10 
+        docker build . --file Dockerfile --tag my-image-name:pr-${{ github.event.number }}_${{ SHA }}
