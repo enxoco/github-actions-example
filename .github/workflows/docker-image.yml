@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set environment variables
-      run: echo "LATEST_BASE_COMMIT=git rev-parse ${{ github.sha }}^@ | grep -Fvx ${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
+      run: echo "LATEST_BASE_COMMIT=$(git rev-parse ${{ github.sha }}^@ | grep -Fvx ${{ github.event.pull_request.head.sha }})" >> $GITHUB_ENV
     - name: Build docker Image
       #run: echo the latest is ${{ env.LATEST_BASE_COMMIT }}
       run: docker build . --file Dockerfile --tag my-image-name:pr-${{ github.event.number }}_${{ env.LATEST_BASE_COMMIT }}
