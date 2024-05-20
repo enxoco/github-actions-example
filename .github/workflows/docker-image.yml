@@ -18,10 +18,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Debug
-        run: |
-          echo "github.ref -> {{ github.ref }}"
- 
       - name: Docker metadata
         id: metadata
         uses: docker/metadata-action@v3
