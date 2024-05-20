@@ -15,7 +15,7 @@ jobs:
         with:
           image: repo/image
           # tags: v1, latest
-          registry: ${{ secrets.DOCKER_REPOSITORY}}
+          registry: ${{ secrets.DOCKER_REGISTRY }}
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
