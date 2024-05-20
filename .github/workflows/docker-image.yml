@@ -14,7 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set environment variables
     - name: Set short git commit SHA
       id: vars
       run: |
