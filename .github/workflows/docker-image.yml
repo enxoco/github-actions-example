@@ -26,6 +26,9 @@ jobs:
   build:
     name: Build & push docker image
     runs-on: ubuntu-latest
+    continue_on_error: true
+    needs: context
+    if: ${{ needs.check_for_changes.outputs }}
     env:
       IMG_NAME: ${{ secrets.DOCKER_REGISTRY }}/designserver
     steps:
