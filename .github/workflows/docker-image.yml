@@ -17,8 +17,6 @@ jobs:
         id: image_exists
         run: |
           DOCKER_TOKEN=$(echo "${{secrets.DOCKER_USERNAME}}:${{secrets.DOCKER_PASSWORD}}" | base64 -w 0)
-          echo $DOCKER_TOKEN
-          echo "curl -H \"Authorization: Basic $DOCKER_TOKEN\""
           TOKEN=$(curl -H "Authorization: Basic $DOCKER_TOKEN" "https://${{ secrets.DOCKER_REGISTRY }}/oauth2/token?service=${{ secrets.DOCKER_REGISTRY }}&scope=repository:designserver:pull" | jq -r '.access_token')
           curl -H "Authorization: Bearer $TOKEN" https://${{ secrets.DOCKER_REGISTRY }}/v2/designserver/manifests/latest | jq -r '.errors[0].message'
 
