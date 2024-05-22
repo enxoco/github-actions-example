@@ -16,8 +16,7 @@ jobs:
       - name: github-action-docker-image-exists
         id: image_exists
         run: |
-          DOCKER_TOKEN=$(echo "username:password" | base64 -w 0)
-          echo $DOCKER_TOKEN
+          DOCKER_TOKEN=$(echo "${{secrets.DOCKER_USERNAME}}:${{secrets.DOCKER_PASSWORD}}" | base64 -w 0)
           TOKEN=$(curl -H "Authorization: Basic $DOCKER_TOKEN" "https://${{ secrets.DOCKER_REGISTRY }}/oauth2/token?service=${{ secrets.DOCKER_REGISTRY }}&scope=repository:designserver:pull" | jq -r '.access_token')
           curl -H "Authorization: Bearer $TOKEN" https://${{ secrets.DOCKER_REGISTRY }}/v2/designserver/manifests/latest | jq -r '.errors[0].message'
 
