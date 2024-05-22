@@ -21,10 +21,13 @@ jobs:
           
           IMAGE_FOUND_STRING="OCI index found, but accept header does not support OCI indexes"
           if [[ $MESSAGE = $IMAGE_FOUND_STRING ]]; then
+            echo "IMAGE_EXISTS=true"
             echo "IMAGE_EXISTS=true" >> "$GITHUB_OUTPUT"
           else
+            echo "IMAGE_EXISTS=false"
             echo "IMAGE_EXISTS=false" >> "$GITHUB_OUTPUT"
           fi
+          
 
 
   build:
