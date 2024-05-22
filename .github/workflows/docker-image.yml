@@ -17,14 +17,14 @@ jobs:
         id: image_exists
         run: |
           TOKEN=$(curl -H "Authorization: Basic ${{ secrets.DOCKER_AUTH_TOKEN }}" "https://${{ secrets.DOCKER_REGISTRY }}/oauth2/token?service=${{ secrets.DOCKER_REGISTRY }}&scope=repository:designserver:pull" | jq -r '.access_token')
-          MESSAGE=$curl -H "Authorization: Bearer $TOKEN" https://${{ secrets.DOCKER_REGISTRY }}/v2/designserver/manifests/latest | jq -r '.errors[0].message')
+          # MESSAGE=$curl -H "Authorization: Bearer $TOKEN" https://${{ secrets.DOCKER_REGISTRY }}/v2/designserver/manifests/latest | jq -r '.errors[0].message')
           
-          IMAGE_FOUND_STRING="OCI index found, but accept header does not support OCI indexes"
-          if [[ $MESSAGE = $IMAGE_FOUND_STRING ]]; then
-            echo "IMAGE_EXISTS=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "IMAGE_EXISTS=false" >> "$GITHUB_OUTPUT"
-          fi
+          # IMAGE_FOUND_STRING="OCI index found, but accept header does not support OCI indexes"
+          # if [[ $MESSAGE = $IMAGE_FOUND_STRING ]]; then
+          #   echo "IMAGE_EXISTS=true" >> "$GITHUB_OUTPUT"
+          # else
+          #   echo "IMAGE_EXISTS=false" >> "$GITHUB_OUTPUT"
+          # fi
 
 
   build:
