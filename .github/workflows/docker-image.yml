@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     # continue_on_error: true
     needs: image_exists
-    if: ${{ needs.image_exists.outputs.IMAGE_EXISTS == 'false'}}
+    if: ${{ needs.image_exists.outputs.IMAGE_EXISTS == 'true'}}
     env:
       IMG_NAME: ${{ secrets.DOCKER_REGISTRY }}/designserver
     steps:
