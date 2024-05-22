@@ -9,6 +9,20 @@ on:
     branches:
       - '*'
 jobs:
+  context:
+    runs-on: ubuntu-latest
+    continue-on-error: true  
+    steps:  
+      - name: github-action-docker-image-exists
+        id: image_exists
+        uses: cloudposse/github-action-docker-image-exists@main
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY }}
+          organization: "${{ github.event.repository.owner.login }}"
+          repository: "designserver"
+          login: "${{ secrets.DOCKER_USERNAME }}"
+          password: "${{ secrets.DOCKER_PASSWORD }}"
+          tag: latest
   build:
     name: Build & push docker image
     runs-on: ubuntu-latest
