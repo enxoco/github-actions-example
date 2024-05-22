@@ -18,7 +18,7 @@ jobs:
         uses: cloudposse/github-action-docker-image-exists@main
         with:
           registry: ${{ secrets.DOCKER_REGISTRY }}
-          organization: "${{ github.event.repository.owner.login }}"
+          organization: ""
           repository: "designserver"
           login: "${{ secrets.DOCKER_USERNAME }}"
           password: "${{ secrets.DOCKER_PASSWORD }}"
