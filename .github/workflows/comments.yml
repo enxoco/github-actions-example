@@ -4,6 +4,26 @@ on:
     types: [opened, edited, synchronize, reopened]
 
 jobs:
+  delete-environment:
+    runs-on: ubuntu-latest
+    name: Delete test environment
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/deleteprenvironment' }}
+    permissions:
+        contents: write
+        pull-requests: write
+        repository-projects: write
+        id-token: write
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Environment deleted successfully!'
+            })
+
   comment-in-pr:
 
     runs-on: ubuntu-latest
@@ -23,5 +43,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🚀 We built a shiny new test environment for you based on this PR!<br />  You can access it via: [this link](https://example.com).<br />  Sign in using your develop account.<br />  If you don\'t need this test environment, reply to this comment with /deleteprenvironment'
+              body: '🚀 We built a shiny new test environment for you based on this PR!  You can access it via: [this link](https://example.com).  Sign in using your develop account.  If you don\'t need this test environment, reply to this comment with /deleteprenvironment'
             })
