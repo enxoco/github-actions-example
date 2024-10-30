@@ -47,5 +47,5 @@ jobs:
               body: '🚀 We built a shiny new test environment for you based on this PR!  You can access it via: [this link](https://example.com).  Sign in using your develop account.  If you don\'t need this test environment, reply to this comment with /deleteprenvironment<div id="environmentprlink" style="display:none"></div>'
             })
             console.log("comment", comment)
-          env:
-            GITHUB_CONTEXT: ${{ toJson(github) }}
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
