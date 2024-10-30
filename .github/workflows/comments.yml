@@ -1,0 +1,40 @@
+name: My name example
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  comment-in-pr:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/github-script@v6
+
+        with:
+          script: |
+            console.log("context.issue.number", context.issue.number)
+            let comments = []
+            comments = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚀 We built a shiny new test environment for you based on this PR!  You can access it via: [this link](https://example.com).  Sign in using your develop account.  If you don\'t need this test environment, reply to this comment with /deleteprenvironment<div id="environmentprlink" style="display:none"></div>'
+            })
+            if (!comments.data.find(a => a.body.includes('environmentprlink'))) {
+              console.log('Creating initial comment')
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '🚀 We built a shiny new test environment for you based on this PR!  You can access it via: [this link](https://example.com).  Sign in using your develop account.  If you don\'t need this test environment, reply to this comment with /deleteprenvironment<div id="environmentprlink" style="display:none"></div>'
+              })
+            } else {
+              console.log('Comment already exists')
+            }
