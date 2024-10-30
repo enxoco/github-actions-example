@@ -37,11 +37,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - uses: actions/github-script@v6
+
         with:
           script: |
-            github.rest.issues.createComment({
+            var comment = github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🚀 We built a shiny new test environment for you based on this PR!  You can access it via: [this link](https://example.com).  Sign in using your develop account.  If you don\'t need this test environment, reply to this comment with /deleteprenvironment'
+              body: '🚀 We built a shiny new test environment for you based on this PR!  You can access it via: [this link](https://example.com).  Sign in using your develop account.  If you don\'t need this test environment, reply to this comment with /deleteprenvironment<div id="environmentprlink" style="display:none"></div>'
             })
+            console.log("comment", comment)
