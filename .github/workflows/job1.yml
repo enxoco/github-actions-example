@@ -27,7 +27,7 @@ jobs:
         id: result
         run: echo $JSON
         env:
-          JSON: ${{ toJSON(github.event['_links'].issue)}}
+          JSON: ${{ toJSON(github.event)}}
       - name: Ready for environment
         env:
           GH_TOKEN: ${{ secrets.MY_TOKEN }}
