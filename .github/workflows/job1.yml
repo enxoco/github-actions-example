@@ -27,10 +27,10 @@ jobs:
         id: result
         run: echo $JSON
         env:
-          JSON: ${{ toJSON(github.event.issue)}}
+          JSON: ${{ toJSON(github.event["_links"].issue)}}
       - name: Ready for environment
         env:
           GH_TOKEN: ${{ secrets.MY_TOKEN }}
-          ISSUE_URL: ${{ github.event['_links'].issue }}
+          ISSUE_URL: ${{ github.event['_links'].issue.href }}
         run: |
           gh issue edit $ISSUE_URL --add-label "triage"
