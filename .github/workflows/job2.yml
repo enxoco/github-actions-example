@@ -11,6 +11,6 @@ jobs:
     needs: [job1]
     steps:
       - name: Check if Workflow 1 passed
-        if: contains(github.event.pull_request.labels.*.name, 'build test environment')
+        if: contains(github.event.pull_request.labels.*.name, 'build test environment') && contains(github.event.pull_request.labels.*.name, 'triage')
         run: |
-          echo "Running"
+          echo "Standing up environment"
