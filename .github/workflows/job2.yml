@@ -1,0 +1,22 @@
+name: experiment
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+    types: [opened, labeled, unlabeled, synchronize, reopened]
+
+jobs:
+  job3:
+    name: Job 3
+    needs: job2
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'build test environment')
+
+    steps:
+    - name: Will never run
+      run: |
+        echo "If you can read this, the experiment failed"
