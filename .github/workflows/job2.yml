@@ -3,22 +3,16 @@ name: Workflow 2
 
 on:
   pull_request:
-    types: [labeled, unlabeled, synchronize]
+    types: [labeled, unlabeled]
 
 jobs:
   check-pr-label:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Check if Workflow 1 passed
+      - uses: actions/checkout@v3
+      - uses: .github/workflows/workflow-1.yml
+        name: Check if Workflow 1 passed
         if: contains(github.event.pull_request.labels.*.name, 'build test environment')
         run: |
           echo "Running"
-
-      - name: Run additional steps
-        run: |
-          # Your additional logic or deploy tasks here
-          echo "Running deploy tasks based on label presence and Workflow 1 results."

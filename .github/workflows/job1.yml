@@ -2,6 +2,8 @@
 name: Workflow 1
 
 on:
+  workflow_call:
+    
   pull_request:
     types:
       - opened
