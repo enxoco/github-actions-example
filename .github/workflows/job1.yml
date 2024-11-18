@@ -1,7 +1,6 @@
 name: experiment
 
 on:
-  workflow_call:
   push:
     branches:
       - 'main'
