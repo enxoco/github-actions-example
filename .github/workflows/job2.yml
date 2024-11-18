@@ -6,15 +6,15 @@ on:
     branches: 'main'
     types:
       - completed
-      
+
 jobs:
+  jobs1:
+    uses: ./.github/workflows/job1.yml
   job3:
-    name: Job 3
-    needs: job2
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'build test environment')
+    name: Final countdown
+    needs: [job1]
 
     steps:
-    - name: Will never run
-      run: |
-        echo "If you can read this, the experiment failed"
+      - name: Final countdown step
+        run: echo "All dependencies satisfied"
