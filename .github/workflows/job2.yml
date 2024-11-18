@@ -2,41 +2,23 @@
 name: Workflow 2
 
 on:
-  workflow_run:
-    workflows:
-      - Workflow 1
-    types:
-      - completed
+  pull_request:
+    types: [labeled, unlabeled, synchronize]
+
 jobs:
-  deploy:
+  check-pr-label:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run deploy tasks
+      - name: Check if Workflow 1 passed
+        if: contains(github.event.pull_request.labels.*.name, 'build test environment')
         run: |
-          echo "Running deploy tasks since Workflow 1 was successful."
-# on:
-#   pull_request:
-#     types: [labeled, unlabeled, synchronize]
+          echo "Running"
 
-# jobs:
-#   check-pr-label:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v3
-
-#       - name: Check if Workflow 1 passed
-#         if: contains(github.event.pull_request.labels.*.name, 'build test environment')
-#         run: |
-
-
-#       - name: Run additional steps
-#         run: |
-#           # Your additional logic or deploy tasks here
-#           echo "Running deploy tasks based on label presence and Workflow 1 results."
+      - name: Run additional steps
+        run: |
+          # Your additional logic or deploy tasks here
+          echo "Running deploy tasks based on label presence and Workflow 1 results."
