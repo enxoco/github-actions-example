@@ -2,18 +2,15 @@ name: Step 2
 
 on:
   workflow_run:
-    workflows: ["experiment"]
-    branches: 'main'
+    workflows:
+      - Job 1
     types:
       - completed
 
 jobs:
-  jobs1:
-    uses: ./.github/workflows/job1.yml
   job3:
     runs-on: ubuntu-latest
     name: Final countdown
-    needs: [job1]
 
     steps:
       - name: Final countdown step
