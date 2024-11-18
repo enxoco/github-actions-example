@@ -31,6 +31,6 @@ jobs:
       - name: Ready for environment
         env:
           GH_TOKEN: ${{ secrets.MY_TOKEN }}
-          ISSUE_URL: ${{ github.event.issue.url }}
+          ISSUE_URL: ${{ github.event.issue.href }}
         run: |
           gh issue edit $ISSUE_URL --add-label "triage"
