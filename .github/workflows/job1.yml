@@ -20,7 +20,7 @@ jobs:
         run: |
           # Example steps for testing or building
           echo "Running tests or build steps..."
-
+          sleep 10
       - name: Save status to output
         id: result
         run: |
