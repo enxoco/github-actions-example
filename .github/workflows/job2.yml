@@ -8,11 +8,9 @@ on:
 jobs:
   check-pr-label:
     runs-on: ubuntu-latest
-
+    needs: [job1]
     steps:
-      - uses: actions/checkout@v3
-      - uses: .github/workflows/workflow-1.yml
-        name: Check if Workflow 1 passed
+      - name: Check if Workflow 1 passed
         if: contains(github.event.pull_request.labels.*.name, 'build test environment')
         run: |
           echo "Running"
