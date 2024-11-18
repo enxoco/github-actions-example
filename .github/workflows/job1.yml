@@ -1,0 +1,36 @@
+# .github/workflows/workflow-1.yml
+name: Workflow 1
+
+on:
+  workflow_call:
+    
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run tests or build
+        run: |
+          # Example steps for testing or building
+          echo "Running tests or build steps..."
+          sleep 10
+      - name: Save status to output
+        id: result
+        run: echo $JSON
+        env:
+          JSON: ${{ toJSON(github.event['pull_request']['_links']['issue'])}}
+      - name: Ready for environment
+        env:
+          GH_TOKEN: ${{ secrets.MY_TOKEN }}
+          ISSUE_URL: ${{github.event['pull_request']['_links']['issue'].href}}
+        run: |
+          gh issue edit $ISSUE_URL --add-label "triage"
