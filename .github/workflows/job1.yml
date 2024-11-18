@@ -27,7 +27,7 @@ jobs:
         id: result
         run: |
           echo "workflow_1_status=success" >> $GITHUB_ENV
-          
+          toJson(github.event)
       - name: Ready for environment
         env:
           GH_TOKEN: ${{ secrets.MY_TOKEN }}
