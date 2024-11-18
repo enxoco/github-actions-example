@@ -1,6 +1,12 @@
-name: experiment
+name: Step 2
 
 on:
+  workflow_run:
+    workflows: ["experiment"]
+    branches: 'main'
+    types:
+      - completed
+
   push:
     branches:
       - 'main'
