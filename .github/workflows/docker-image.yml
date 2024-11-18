@@ -11,6 +11,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    if: ${{ github.event.number != null && contains(github.event.pull_request.labels.*.name, 'build test environment') }}
 
     steps:
     - uses: actions/checkout@v4
